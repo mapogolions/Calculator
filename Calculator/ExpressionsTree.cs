@@ -4,10 +4,12 @@ namespace Calculator
 {
     public class ExpressionsTree
     {
-        public class Node
+        public INode Root { get; set; }
+
+        private class Node : INode
         {
-            public Node Left { get; set; }
-            public Node Right { get; set; }
+            public INode Left { get; set; }
+            public INode Right { get; set; }
 
             public Node(INodeData data)
             {
@@ -16,5 +18,12 @@ namespace Calculator
 
             public INodeData Data { get;  }
         }
+    }
+
+    public interface INode
+    {
+        public INode Left { get; set; }
+        public INode Right { get; set; }
+        public INodeData Data { get; }
     }
 }
