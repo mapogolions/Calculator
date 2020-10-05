@@ -1,4 +1,4 @@
-using Calculator.Types;
+using Calculator.NodeDataTypes;
 
 namespace Calculator
 {
