@@ -4,7 +4,7 @@ namespace Calculator
     {
         public ExpressionsTree Parse(string source)
         {
-            return null;
+            return new ExpressionsTree();
         }
     }
 }
