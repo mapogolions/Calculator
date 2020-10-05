@@ -1,6 +1,6 @@
 using System;
 
-namespace Calculator.Types
+namespace Calculator.NodeDataTypes
 {
     public class Number<T> : INodeData where T : struct
     {

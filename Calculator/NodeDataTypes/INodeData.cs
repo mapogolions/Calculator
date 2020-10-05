@@ -1,4 +1,4 @@
-namespace Calculator.Types
+namespace Calculator.NodeDataTypes
 {
     public interface INodeData
     {

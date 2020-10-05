@@ -1,4 +1,4 @@
-namespace Calculator.Types
+namespace Calculator.NodeDataTypes
 {
     public class Operator : INodeData
     {
