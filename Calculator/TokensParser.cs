@@ -45,7 +45,7 @@ namespace Calculator
 
         private static Associative Assoc(IEnumerable<IToken> tokens, Operator op)
         {
-            if (!op.IsMultiAssociative) return op.Associative;
+            if (!op.HasMultipleAssociativeForms) return op.Associative;
             var lastToken = tokens.LastOrDefault();
             if (lastToken is null || Equals(lastToken, Operator.OpenBracket))
                 return Associative.Right;
