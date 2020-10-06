@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using Calculator.Contracts;
 using Calculator.Extensions;
 using Calculator.Tokens;
 

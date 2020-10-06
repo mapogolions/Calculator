@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Calculator.Tokens;
 
-namespace Calculator
+namespace Calculator.Contracts
 {
     public interface ITokensParser
     {

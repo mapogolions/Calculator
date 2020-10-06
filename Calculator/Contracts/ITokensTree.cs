@@ -1,6 +1,6 @@
 using Calculator.Tokens;
 
-namespace Calculator
+namespace Calculator.Contracts
 {
     public interface ITokensTree
     {
