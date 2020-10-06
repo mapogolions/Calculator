@@ -47,10 +47,13 @@ namespace Calculator
         private static Associative Assoc(IEnumerable<IToken> tokens, Operator op)
         {
             if (!op.HasMultipleAssociativeForms) return op.Associative;
-            var lastToken = tokens.LastOrDefault();
-            if (lastToken is null || Equals(lastToken, Operator.OpenBracket))
-                return Associative.Right;
-            return Associative.Left;
+            return tokens.LastOrDefault() switch
+            {
+                Operator { Sign: ')' } => Associative.Left,
+                Number<int> _ => Associative.Left,
+                Number<double> _ => Associative.Left,
+                _ => Associative.Right
+            };
         }
     }
 }
