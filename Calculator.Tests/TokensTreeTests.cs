@@ -2,12 +2,12 @@ using Xunit;
 
 namespace Calculator.Test
 {
-    public class ExpressionsTreeTests
+    public class TokensTreeTests
     {
         [Fact]
         public void EmptyExpressionsTreeShouldHasNullRoot()
         {
-            var tree = new ExpressionsTree();
+            var tree = new TokensTree();
             Assert.Null(tree.Root);
         }
     }

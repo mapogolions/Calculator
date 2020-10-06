@@ -24,7 +24,7 @@ namespace Calculator.Test
         }
 
         [Theory]
-        [ClassData(typeof(NumbersDataSource))]
+        [ClassData(typeof(NumberTokensDataSource))]
         public void ParseShouldReturnListOfNumberTokens(string source, IEnumerable<IToken> tokens)
         {
             var parser = new TokensParser(Operator.AvailableOperators);
@@ -32,7 +32,7 @@ namespace Calculator.Test
         }
 
         [Theory]
-        [ClassData(typeof(OperatorsDataSource))]
+        [ClassData(typeof(OperatorTokensDataSource))]
         public void ParseShouldReturnListOfOperatorTokens(string source, IEnumerable<IToken> tokens)
         {
             var parser = new TokensParser(Operator.AvailableOperators);

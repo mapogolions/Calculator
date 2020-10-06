@@ -2,10 +2,10 @@ using Calculator.Tokens;
 
 namespace Calculator
 {
-    public class ExpressionsTree : IExpressionsTree
+    public class TokensTree : ITokensTree
     {
         public INode Root { get; set; }
-        public IExpressionsTree Insert(IToken token)
+        public ITokensTree Insert(IToken token)
         {
             return this;
         }
