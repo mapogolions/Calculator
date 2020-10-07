@@ -5,6 +5,6 @@ namespace Calculator.Contracts
 {
     public interface ITokensParser
     {
-        public IEnumerable<IToken> Parse(string source);
+        IEnumerable<IToken> Parse(string source);
     }
 }

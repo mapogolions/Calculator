@@ -15,6 +15,7 @@ namespace Calculator.Test.Fixtures
             yield return new object[] { "*)" };
             yield return new object[] { "5 + * 5" };
             yield return new object[] { "6 + - / 5"};
+            yield return new object[] { "(^"};
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
