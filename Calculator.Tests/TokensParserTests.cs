@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Calculator.Exceptions;
 using Calculator.Test.Fixtures;
