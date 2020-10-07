@@ -45,7 +45,10 @@ namespace Calculator
             return this;
         }
 
-
+        public IExpressionsTree ClimbUp(IToken token)
+        {
+            throw new NotImplementedException();
+        }
 
         private class Node : INode
         {
