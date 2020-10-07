@@ -8,15 +8,15 @@ namespace Calculator.Tokens
 
         public static readonly CloseBracketOperator Singleton = new CloseBracketOperator();
 
-        public override IToken EnsureIsValid(IToken token)
+        public override IToken EnsureIsValid(IToken previousToken)
         {
-            if (token is null)
+            if (previousToken is null)
                 throw new ParserException("Close bracket can't be first token");
-            if (token == Operator.OpenBracket)
+            if (previousToken == Operator.OpenBracket)
                 throw new ParserException("Close bracket can't be follow after open bracket");
-            else if (token is UnaryOperator _ && token != Operator.CloseBracket)
+            else if (previousToken is UnaryOperator _ && previousToken != Operator.CloseBracket)
                 throw new ParserException("Close bracket can't be follow after unary operator");
-            else if (token is BinaryOperator _)
+            else if (previousToken is BinaryOperator _)
                 throw new ParserException("Close bracket can't be follow after binary operator");
             return this;
         }

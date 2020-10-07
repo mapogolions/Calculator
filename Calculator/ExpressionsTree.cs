@@ -23,10 +23,11 @@ namespace Calculator
             return this;
         }
 
-        public IExpressionsTree ClimbUp(IToken token)
+        private IExpressionsTree ClimbUp(IToken token)
         {
-            var node = new Node(token) { Left = Root };
-            Root = CurrentNode = node;
+            var currentNode = CurrentNode;
+            var node = new Node(token) { Left = CurrentNode };
+            CurrentNode = node;
             return this;
         }
 

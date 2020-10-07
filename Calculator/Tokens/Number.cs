@@ -11,7 +11,7 @@ namespace Calculator.Tokens
         }
         public T Value { get;  }
 
-        public int Precedence => 0;
+        public int Precedence => 10;
 
         public bool Equals(Number<T> other)
         {

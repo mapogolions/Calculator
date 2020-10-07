@@ -8,11 +8,11 @@ namespace Calculator.Tokens
 
         public readonly static OpenBracketOperator Singleton = new OpenBracketOperator();
 
-        public override IToken EnsureIsValid(IToken token)
+        public override IToken EnsureIsValid(IToken previousToken)
         {
-            if (token == Operator.CloseBracket)
+            if (previousToken == Operator.CloseBracket)
                 throw new ParserException("Open bracket can be after close bracket");
-            else if (token is Number<int> _ || token is Number<double> _)
+            else if (previousToken is Number<int> _ || previousToken is Number<double> _)
                 throw new ParserException("Open bracket can be after number");
             return this;
         }
