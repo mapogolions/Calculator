@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Calculator.Exceptions;
 using Calculator.Test.Fixtures;
 using Calculator.Tokens;
 using Xunit;
@@ -8,6 +9,14 @@ namespace Calculator.Test
 {
     public class TokenParserTests
     {
+        [Theory]
+        [ClassData(typeof(InvalidTokensDataSource))]
+        public void ParseShouldThrowParserExceptionWithMessage(string source)
+        {
+            var parser = new TokensParser(Operator.AvailableOperators);
+            Assert.Throws<ParserException>(() => parser.Parse(source));
+        }
+
         [Theory]
         [ClassData(typeof(ValidTokensDataSource))]
         public void ParseShouldReturnListOfTokens(string source, IEnumerable<IToken> tokens)
