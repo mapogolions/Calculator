@@ -20,14 +20,19 @@ namespace Calculator
             {
                 return ClimbUp(token);
             }
+            CurrentNode.Right = new Node(token) { Parent = CurrentNode };
             return this;
         }
 
         private IExpressionsTree ClimbUp(IToken token)
         {
+            if (token.Associative != Associative.Left) return this;
             var currentNode = CurrentNode;
-            var node = new Node(token) { Left = CurrentNode };
-            CurrentNode = node;
+            CurrentNode = new Node(token)
+            {
+                Parent = currentNode.Parent,
+                Left = currentNode
+            };
             return this;
         }
 
@@ -41,7 +46,6 @@ namespace Calculator
             {
                 Token = token;
             }
-
             public IToken Token { get;  }
         }
     }

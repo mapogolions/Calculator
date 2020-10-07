@@ -13,6 +13,8 @@ namespace Calculator.Tokens
 
         public int Precedence => 10;
 
+        public Associative Associative => Associative.None;
+
         public bool Equals(Number<T> other)
         {
             if (ReferenceEquals(null, other)) return false;
