@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Calculator.Tokens
 {
-    public class Operator : IToken
+    public abstract class Operator : IToken
     {
         public static IList<Operator> AvailableOperators { get; } = new List<Operator>();
 
@@ -26,6 +26,8 @@ namespace Calculator.Tokens
 
         public override string ToString() => $"{Sign}";
 
+        public abstract IToken EnsureIsValid(IToken previousToken);
+
         public static readonly Operator Plus = new BinaryOperator('+', 2, Associative.Left);
         public static readonly Operator Minus = new BinaryOperator('-', 2, Associative.Left);
         public static readonly Operator Positive = new UnaryOperator('+', 3, Associative.Right);
@@ -33,7 +35,7 @@ namespace Calculator.Tokens
         public static readonly Operator Times = new BinaryOperator('*', 4, Associative.Left);
         public static readonly Operator Divide = new BinaryOperator('/', 4, Associative.Left);
         public static readonly Operator Power = new BinaryOperator('^', 5, Associative.Right);
-        public static readonly Operator OpenBracket = new UnaryOperator('(', 1, Associative.None);
-        public static readonly Operator CloseBracket = new UnaryOperator(')', 1, Associative.None);
+        public static readonly Operator OpenBracket = OpenBracketOperator.Singleton;
+        public static readonly Operator CloseBracket = CloseBracketOperator.Singleton;
     }
 }

@@ -21,33 +21,34 @@ namespace Calculator
         public IEnumerable<IToken> Parse(string source)
         {
             var tokens = new List<IToken>();
-            var parts = source.Trim().SplitAndKeep(Separators);
+            var parts = source.Trim().SplitAndKeep(Separators).Where(x => !string.IsNullOrEmpty(x));
             foreach (var part in parts)
             {
                 var normalized = part.Trim();
-                var token = _operators
-                    .FirstOrDefault(op => $"{op.Sign}" == normalized && op.Associative == Assoc(tokens, op));
-                if (token != null)
+                var previousToken = tokens.LastOrDefault();
+                var operatorToken = _operators
+                    .FirstOrDefault(op => $"{op.Sign}" == normalized && op.Associative == Assoc(previousToken, op));
+                if (operatorToken != null)
                 {
-                    tokens.Add(token);
+                    tokens.Add(operatorToken.EnsureIsValid(previousToken));
                     continue;
                 }
                 if (int.TryParse(normalized, out var num))
                 {
-                    tokens.Add(new Number<int>(num));
+                    tokens.Add(new Number<int>(num).EnsureIsValid(previousToken));
                     continue;
                 }
                 if (!double.TryParse(normalized, out var floatingPoint))
                     throw new InvalidOperationException("Invalid token");
-                tokens.Add(new Number<double>(floatingPoint));
+                tokens.Add(new Number<double>(floatingPoint).EnsureIsValid(previousToken));
             }
             return tokens;
         }
 
-        private static Associative Assoc(IEnumerable<IToken> tokens, Operator op)
+        private static Associative Assoc(IToken previousToken, Operator op)
         {
             if (!op.HasMultipleAssociativeForms) return op.Associative;
-            return tokens.LastOrDefault() switch
+            return previousToken switch
             {
                 Operator { Sign: ')' } => Associative.Left,
                 Number<int> _ => Associative.Left,

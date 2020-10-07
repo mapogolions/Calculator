@@ -4,7 +4,7 @@ using Calculator.Tokens;
 
 namespace Calculator.Test.Fixtures
 {
-    public class TokensDataSource : IEnumerable<object[]>
+    public class ValidTokensDataSource : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
         {

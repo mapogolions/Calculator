@@ -10,13 +10,13 @@ namespace Calculator.Extensions
             while ((index = s.IndexOfAny(separators, start)) != -1)
             {
                 if(index-start > 0)
-                    yield return s.Substring(start, index - start);
-                yield return s.Substring(index, 1);
+                    yield return s.Substring(start, index - start).Trim();
+                yield return s.Substring(index, 1).Trim();
                 start = index + 1;
             }
             if (start < s.Length)
             {
-                yield return s.Substring(start);
+                yield return s.Substring(start).Trim();
             }
         }
     }

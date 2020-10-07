@@ -6,16 +6,46 @@ namespace Calculator
 {
     public class ExpressionsTree : IExpressionsTree
     {
-        public INode Root { get; set; }
+        private INode _root;
+        public INode Root
+        {
+            get => _root;
+            private set
+            {
+                if (_root is null && value.Token is BinaryOperator _)
+                    throw new InvalidOperationException("Before binary operator must be operand");
+                if (Equals(value.Token, Operator.CloseBracket))
+                    throw new InvalidOperationException("Close bracket can't be root");
+                _root = value;
+            }
+        }
+
+        private INode _currentNode;
+
+        public INode CurrentNode
+        {
+            get => _currentNode;
+            private set
+            {
+                if (_currentNode is null)
+                {
+                    _currentNode = value;
+                    return;
+                }
+            }
+        }
 
         public IExpressionsTree Insert(IToken token)
         {
-            if (Root is { }) return this;
-            if (token is Operator op && op.Kind is OperatorKinds.Binary)
-                throw new InvalidOperationException();
-            Root = new Node(token);
+            var node = new Node(token);
+            if (Root is null)
+            {
+                Root = CurrentNode = node;
+            }
             return this;
         }
+
+
 
         private class Node : INode
         {

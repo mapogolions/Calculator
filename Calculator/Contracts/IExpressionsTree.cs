@@ -4,7 +4,7 @@ namespace Calculator.Contracts
 {
     public interface IExpressionsTree
     {
-        public INode Root { get; set; }
+        public INode Root { get; }
         public IExpressionsTree Insert(IToken token);
     }
 

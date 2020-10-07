@@ -1,4 +1,5 @@
 using System;
+using Calculator.Exceptions;
 
 namespace Calculator.Tokens
 {
@@ -30,6 +31,15 @@ namespace Calculator.Tokens
         public override int GetHashCode()
         {
             return Value.GetHashCode();
+        }
+
+        public IToken EnsureIsValid(IToken previousToken)
+        {
+            if (previousToken == Operator.CloseBracket)
+                throw new ParserException("Number can't be follow after close bracket");
+            if (previousToken is Number<int>_ || previousToken is Number<double> _)
+                throw new ParserException("Number cant' be follow after number");
+            return this;
         }
 
         public override string ToString() => Value.ToString();

@@ -9,31 +9,8 @@ namespace Calculator.Test
     public class TokenParserTests
     {
         [Theory]
-        [ClassData(typeof(TokensDataSource))]
+        [ClassData(typeof(ValidTokensDataSource))]
         public void ParseShouldReturnListOfTokens(string source, IEnumerable<IToken> tokens)
-        {
-            var parser = new TokensParser(Operator.AvailableOperators);
-            Assert.Equal(tokens, parser.Parse(source));
-        }
-
-        [Fact]
-        public void ParseShouldThrowInvalidOperationExceptionWhenSourceIsInvalid()
-        {
-            var parser = new TokensParser(Operator.AvailableOperators);
-            Assert.Throws<InvalidOperationException>(() => parser.Parse("34.45 45"));
-        }
-
-        [Theory]
-        [ClassData(typeof(NumberTokensDataSource))]
-        public void ParseShouldReturnListOfNumberTokens(string source, IEnumerable<IToken> tokens)
-        {
-            var parser = new TokensParser(Operator.AvailableOperators);
-            Assert.Equal(tokens, parser.Parse(source));
-        }
-
-        [Theory]
-        [ClassData(typeof(OperatorTokensDataSource))]
-        public void ParseShouldReturnListOfOperatorTokens(string source, IEnumerable<IToken> tokens)
         {
             var parser = new TokensParser(Operator.AvailableOperators);
             Assert.Equal(tokens, parser.Parse(source));
