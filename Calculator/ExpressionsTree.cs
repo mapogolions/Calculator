@@ -4,11 +4,11 @@ using Calculator.Tokens;
 
 namespace Calculator
 {
-    public class TokensTree : ITokensTree
+    public class ExpressionsTree : IExpressionsTree
     {
         public INode Root { get; set; }
 
-        public ITokensTree Insert(IToken token)
+        public IExpressionsTree Insert(IToken token)
         {
             if (Root is { }) return this;
             if (token is Operator op && op.Kind is OperatorKinds.Binary)

@@ -16,7 +16,7 @@ namespace Calculator
             _operators = operators;
         }
 
-        private char[] Separators => _operators.Select(x => x.Sign).ToArray();
+        private char[] Separators => _operators.Select(x => x.Sign).Distinct().ToArray();
 
         public IEnumerable<IToken> Parse(string source)
         {

@@ -3,8 +3,8 @@ using Calculator.Tokens;
 
 namespace Calculator.Contracts
 {
-    public interface ITokensTreeBuilder
+    public interface IExpressionsTreeBuilder
     {
-        ITokensTree Build(IEnumerable<IToken> tokens);
+        IExpressionsTree Build(IEnumerable<IToken> tokens);
     }
 }
