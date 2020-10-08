@@ -1,4 +1,5 @@
 ﻿using System;
+using Calculator.Tokens;
 
 namespace Calculator
 {
@@ -6,7 +7,10 @@ namespace Calculator
     {
         internal static void Main(string[] args)
         {
-            Console.WriteLine("will be soon");
+            var snippet = @"-(-2)";
+            var tree = new ExpressionsTreeBuilder(new TokensParser(Operator.AvailableOperators))
+                .Build(snippet);
+            Console.WriteLine(tree.ToString());
         }
     }
 }
