@@ -1,4 +1,6 @@
+using System.Linq;
 using Calculator.Contracts;
+using Calculator.Tokens;
 
 namespace Calculator
 {
@@ -10,14 +12,7 @@ namespace Calculator
         {
             _parser = parser;
         }
-        public IExpressionsTree Build(string source)
-        {
-            var tree = new ExpressionsTree();
-            foreach (var token in _parser.Parse(source))
-            {
-                tree.Insert(token);
-            }
-            return tree;
-        }
+        public IExpressionsTree Build(string source) => _parser.Parse(source)
+            .Aggregate<IToken, IExpressionsTree>(new ExpressionsTree(), (tree, token) => tree.Insert(token));
     }
 }
