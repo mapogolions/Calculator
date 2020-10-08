@@ -1,6 +1,7 @@
-using System.Text;
 using Calculator.Contracts;
 using Calculator.Tokens;
+using Calculator.Extensions;
+using System.Linq;
 
 namespace Calculator
 {
@@ -42,18 +43,7 @@ namespace Calculator
             return currentNode;
         }
 
-        public override string ToString()
-        {
-            static StringBuilder InOrder(INode node, StringBuilder acc)
-            {
-                if (node is null) return acc;
-                InOrder(node.Left, acc);
-                acc.Append(node.Token);
-                InOrder(node.Right, acc);
-                return acc;
-            }
-            return InOrder(Root, new StringBuilder()).ToString().Substring(1);
-        }
+        public override string ToString() => string.Join(string.Empty, this.InOrder().Skip(1).Select(x => x.Token));
 
         private class Node : INode
         {

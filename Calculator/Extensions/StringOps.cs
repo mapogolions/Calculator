@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Calculator.Extensions
 {
-    public static class StringExtensions
+    public static class StringOps
     {
         public static IEnumerable<string> SplitAndKeep(this string s, char[] separators)
         {
