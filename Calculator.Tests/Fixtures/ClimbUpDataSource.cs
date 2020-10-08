@@ -14,7 +14,7 @@ namespace Calculator.Test.Fixtures
                     .Insert(new Number<int>(1))
                     .Insert(Operator.Plus)
                     .Insert(new Number<double>(34.3)),
-                "(1+34.3",
+                "1+34.3",
             };
 
             yield return new object[]
@@ -27,7 +27,7 @@ namespace Calculator.Test.Fixtures
                     .Insert(Operator.Minus)
                     .Insert(new Number<int>(3))
                     .Insert(Operator.CloseBracket),
-                "((1+2-3)",
+                "(1+2-3)",
             };
 
             yield return new object[]
@@ -39,9 +39,8 @@ namespace Calculator.Test.Fixtures
                     .Insert(new Number<int>(2))
                     .Insert(Operator.Times)
                     .Insert(new Number<double>(3.1))
-                    .Insert(Operator.CloseBracket)
                     .Insert(Operator.CloseBracket),
-                "((1+2*3.1))",
+                "(1+2*3.1)",
             };
         }
 

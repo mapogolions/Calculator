@@ -9,7 +9,7 @@ namespace Calculator.Test
     {
         [Theory]
         [ClassData(typeof(ClimbUpDataSource))]
-        public void ShouldDoClimbUp(IExpressionsTree tree, string expected)
+        public void ShouldClimbUpLeftAssociativeOperators(IExpressionsTree tree, string expected)
         {
             Assert.Equal(expected, tree.ToString());
         }
@@ -21,14 +21,14 @@ namespace Calculator.Test
                 .Insert(Operator.OpenBracket)
                 .Insert(new Number<int>(1));
 
-            Assert.Equal("((1", tree.ToString());
+            Assert.Equal("(1", tree.ToString());
         }
 
         [Fact]
         public void ShouldReturnOpenBracketWhenTreeIsEmpty()
         {
             var tree = new ExpressionsTree();
-            Assert.Equal("(", tree.ToString());
+            Assert.Equal(string.Empty, tree.ToString());
         }
 
         [Fact]

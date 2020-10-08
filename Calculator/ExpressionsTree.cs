@@ -44,7 +44,7 @@ namespace Calculator
                 InOrder(node.Right, acc);
                 return acc;
             }
-            return InOrder(Root, new StringBuilder()).ToString();
+            return InOrder(Root, new StringBuilder()).ToString().Substring(1);
         }
 
         private class Node : INode
