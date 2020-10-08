@@ -29,8 +29,16 @@ namespace Calculator
         {
             if (token.Associative is Associative.None) return CurrentNode;
             var currentNode = CurrentNode;
-            while (currentNode.Token.Precedence >= token.Precedence)
-                currentNode = currentNode.Parent;
+            if (token.Associative is Associative.Left)
+            {
+                while (currentNode.Token.Precedence >= token.Precedence)
+                    currentNode = currentNode.Parent;
+            }
+            else
+            {
+                while (currentNode.Token.Precedence > token.Precedence)
+                    currentNode = currentNode.Parent;
+            }
             return currentNode;
         }
 

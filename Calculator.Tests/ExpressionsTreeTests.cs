@@ -8,7 +8,7 @@ namespace Calculator.Test
     public class ExpressionsTreeTests
     {
         [Theory]
-        [ClassData(typeof(ClimbUpDataSource))]
+        [ClassData(typeof(ClimbUpLeftAssocOperatorsDataSource))]
         public void ShouldClimbUpLeftAssociativeOperators(IExpressionsTree tree, string expected)
         {
             Assert.Equal(expected, tree.ToString());

@@ -4,7 +4,7 @@ using Calculator.Tokens;
 
 namespace Calculator.Test.Fixtures
 {
-    public class ClimbUpDataSource : IEnumerable<object[]>
+    public class ClimbUpLeftAssocOperatorsDataSource : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
         {
