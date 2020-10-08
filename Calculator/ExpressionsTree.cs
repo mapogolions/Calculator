@@ -43,7 +43,8 @@ namespace Calculator
             return currentNode;
         }
 
-        public override string ToString() => string.Join(string.Empty, this.InOrder().Skip(1).Select(x => x.Token));
+        public override string ToString() =>
+            string.Join(string.Empty, this.InOrder().Skip(1).Select(x => x.Token));
 
         private class Node : INode
         {
