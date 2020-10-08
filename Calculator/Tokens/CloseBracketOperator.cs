@@ -4,7 +4,7 @@ namespace Calculator.Tokens
 {
     public class CloseBracketOperator : UnaryOperator
     {
-        private CloseBracketOperator() : base (')', 1, Associative.None) { }
+        private CloseBracketOperator() : base (')', 1, Associative.Right) { }
 
         public static readonly CloseBracketOperator Singleton = new CloseBracketOperator();
 
