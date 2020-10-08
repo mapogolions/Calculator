@@ -8,29 +8,31 @@ namespace Calculator.Test.Fixtures
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            yield return new object[]
+            yield return new object[] // 1 + 34.3
             {
                 new ExpressionsTree()
                     .Insert(new Number<int>(1))
                     .Insert(Operator.Plus)
                     .Insert(new Number<double>(34.3)),
-                "1+34.3",
+                "1 + 34.3",
+                "1 34.3 +"
             };
 
-            yield return new object[]
+            yield return new object[] // (1 + 2) * 3
             {
                 new ExpressionsTree()
                     .Insert(Operator.OpenBracket)
                     .Insert(new Number<int>(1))
                     .Insert(Operator.Plus)
                     .Insert(new Number<int>(2))
-                    .Insert(Operator.Minus)
-                    .Insert(new Number<int>(3))
-                    .Insert(Operator.CloseBracket),
-                "(1+2-3)",
+                    .Insert(Operator.CloseBracket)
+                    .Insert(Operator.Times)
+                    .Insert(new Number<int>(3)),
+                "1 + 2 * 3",
+                "1 2 + 3 *"
             };
 
-            yield return new object[]
+            yield return new object[] // (1 + 2 * 3.1)
             {
                 new ExpressionsTree()
                     .Insert(Operator.OpenBracket)
@@ -40,7 +42,8 @@ namespace Calculator.Test.Fixtures
                     .Insert(Operator.Times)
                     .Insert(new Number<double>(3.1))
                     .Insert(Operator.CloseBracket),
-                "(1+2*3.1)",
+                "1 + 2 * 3.1",
+                "1 2 3.1 * +"
             };
         }
 

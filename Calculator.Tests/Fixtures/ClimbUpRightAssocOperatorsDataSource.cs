@@ -8,15 +8,31 @@ namespace Calculator.Test.Fixtures
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            yield return new object[]
+            yield return new object[] // 2 ^ 4 ^ 3
             {
                 new ExpressionsTree()
                     .Insert(new Number<int>(2))
-                    .Insert(Operator.Plus)
-                    .Insert(new Number<int>(2))
+                    .Insert(Operator.Power)
+                    .Insert(new Number<int>(4))
                     .Insert(Operator.Power)
                     .Insert(new Number<int>(3)),
-                "2+2^3",
+                "2 ^ 4 ^ 3",
+                "2 4 3 ^ ^"
+            };
+
+            yield return new object[] // -(-(- 2))
+            {
+                new ExpressionsTree()
+                    .Insert(Operator.Negative)
+                    .Insert(Operator.OpenBracket)
+                    .Insert(Operator.Negative)
+                    .Insert(Operator.OpenBracket)
+                    .Insert(Operator.Negative)
+                    .Insert(new Number<int>(2))
+                    .Insert(Operator.CloseBracket)
+                    .Insert(Operator.CloseBracket),
+                "- - - 2",
+                "2 - - -"
             };
         }
 
