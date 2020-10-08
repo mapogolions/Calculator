@@ -7,19 +7,16 @@ namespace Calculator.Tokens
     {
         public static IList<Operator> AvailableOperators { get; } = new List<Operator>();
 
-        protected Operator(char sign, int precedence, Associative associative,
-            OperatorKinds kind)
+        protected Operator(char sign, int precedence, Associative associative)
         {
             Sign = sign;
             Precedence = precedence;
             Associative = associative;
-            Kind = kind;
             AvailableOperators.Add(this);
         }
         public char Sign { get; }
         public int Precedence { get; }
         public Associative Associative { get; }
-        public OperatorKinds Kind { get; }
 
         public bool HasMultipleAssociativeForms =>
             AvailableOperators.Count(x => x.Sign == Sign) > 1;
