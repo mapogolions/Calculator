@@ -1,47 +1,63 @@
 using System.Collections.Generic;
+using System.Linq;
 using Calculator.Contracts;
+using Calculator.Tokens;
 
 namespace Calculator.Extensions
 {
     public static class IExpressionsTreeOps
     {
+        public static string Traverse(this IExpressionsTree @this, Traversals traversal, string sep = " ")
+        {
+            var nodes = traversal switch
+            {
+                Traversals.PreOrder => PreOrder(@this),
+                Traversals.PostOrder => PostOrder(@this),
+                _ => InOrder(@this)
+            };
+            return string.Join(sep, nodes.Select(x => x.Token));
+        }
+
         public static IEnumerable<INode> PreOrder(this IExpressionsTree @this)
         {
-            static IEnumerable<INode> Loop(INode node, IList<INode> acc)
+            static IEnumerable<INode> Traverse(INode node, IList<INode> acc)
             {
                 if (node is null) return acc;
-                acc.Add(node);
-                Loop(node.Left, acc);
-                Loop(node.Right, acc);
+                if (MustBeIncluded(node)) acc.Add(node);
+                Traverse(node.Left, acc);
+                Traverse(node.Right, acc);
                 return acc;
             }
-            return Loop(@this.Root, new List<INode>());
+            return Traverse(@this.Root, new List<INode>());
         }
 
         public static IEnumerable<INode> InOrder(this IExpressionsTree @this)
         {
-            static IEnumerable<INode> Loop(INode node, IList<INode> acc)
+            static IEnumerable<INode> Traverse(INode node, IList<INode> acc)
             {
                 if (node is null) return acc;
-                Loop(node.Left, acc);
-                acc.Add(node);
-                Loop(node.Right, acc);
+                Traverse(node.Left, acc);
+                if (MustBeIncluded(node)) acc.Add(node);
+                Traverse(node.Right, acc);
                 return acc;
             }
-            return Loop(@this.Root, new List<INode>());
+            return Traverse(@this.Root, new List<INode>());
         }
 
         public static IEnumerable<INode> PostOrder(this IExpressionsTree @this)
         {
-            static IEnumerable<INode> Loop(INode node, IList<INode> acc)
+            static IEnumerable<INode> Traverse(INode node, IList<INode> acc)
             {
                 if (node is null) return acc;
-                Loop(node.Left, acc);
-                Loop(node.Right, acc);
-                acc.Add(node);
+                Traverse(node.Left, acc);
+                Traverse(node.Right, acc);
+                if (MustBeIncluded(node)) acc.Add(node);
                 return acc;
             }
-            return Loop(@this.Root, new List<INode>());
+            return Traverse(@this.Root, new List<INode>());
         }
+
+        private static bool MustBeIncluded(INode node) =>
+            node.Token != Operator.OpenBracket && node.Token != Operator.CloseBracket;
     }
 }
