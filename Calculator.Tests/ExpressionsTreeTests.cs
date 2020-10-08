@@ -1,3 +1,4 @@
+using Calculator.Tokens;
 using Xunit;
 
 namespace Calculator.Test
@@ -8,7 +9,7 @@ namespace Calculator.Test
         public void EmptyExpressionsTreeShouldHasNullRoot()
         {
             var tree = new ExpressionsTree();
-            Assert.Null(tree.Root);
+            Assert.Equal(Operator.OpenBracket, tree.Root.Token);
         }
     }
 }

@@ -9,31 +9,27 @@ namespace Calculator
 
         public INode CurrentNode { get; private set; }
 
+        public ExpressionsTree()
+        {
+            Root = CurrentNode = new Node(Operator.OpenBracket);
+        }
+
         public IExpressionsTree Insert(IToken token)
         {
-            if (Root is null)
-            {
-                Root = CurrentNode = new Node(token);
-                return this;
-            }
-            if (CurrentNode.Token.Precedence >= token.Precedence)
-            {
-                return ClimbUp(token);
-            }
-            CurrentNode.Right = new Node(token) { Parent = CurrentNode };
+            CurrentNode = ClimbUp(token);
+            var node = new Node(token) { Left = CurrentNode.Right, Parent = CurrentNode };
+            if (CurrentNode.Right != null) CurrentNode.Right.Parent = node;
+            CurrentNode.Right = node;
+            CurrentNode = node;
             return this;
         }
 
-        private IExpressionsTree ClimbUp(IToken token)
+        public INode ClimbUp(IToken token)
         {
-            if (token.Associative != Associative.Left) return this;
             var currentNode = CurrentNode;
-            CurrentNode = new Node(token)
-            {
-                Parent = currentNode.Parent,
-                Left = currentNode
-            };
-            return this;
+            while (currentNode.Token.Precedence >= token.Precedence)
+                currentNode = currentNode.Parent;
+            return currentNode;
         }
 
         private class Node : INode
