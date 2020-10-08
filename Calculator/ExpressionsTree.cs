@@ -1,3 +1,4 @@
+using System.Text;
 using Calculator.Contracts;
 using Calculator.Tokens;
 
@@ -26,10 +27,24 @@ namespace Calculator
 
         public INode ClimbUp(IToken token)
         {
+            if (token.Associative is Associative.None) return CurrentNode;
             var currentNode = CurrentNode;
             while (currentNode.Token.Precedence >= token.Precedence)
                 currentNode = currentNode.Parent;
             return currentNode;
+        }
+
+        public override string ToString()
+        {
+            static StringBuilder InOrder(INode node, StringBuilder acc)
+            {
+                if (node is null) return acc;
+                InOrder(node.Left, acc);
+                acc.Append(node.Token);
+                InOrder(node.Right, acc);
+                return acc;
+            }
+            return InOrder(Root, new StringBuilder()).ToString();
         }
 
         private class Node : INode
