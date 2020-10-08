@@ -1,7 +1,5 @@
 using Calculator.Contracts;
 using Calculator.Tokens;
-using Calculator.Extensions;
-using System.Linq;
 
 namespace Calculator
 {
@@ -19,11 +17,27 @@ namespace Calculator
         public IExpressionsTree Insert(IToken token)
         {
             CurrentNode = ClimbUp(token);
+            if (token == Operator.CloseBracket)
+            {
+                CurrentNode = RemoveOpenBracket();
+                return this;
+            }
             var node = new Node(token) { Left = CurrentNode.Right, Parent = CurrentNode };
             if (CurrentNode.Right != null) CurrentNode.Right.Parent = node;
             CurrentNode.Right = node;
             CurrentNode = node;
             return this;
+        }
+
+        private INode RemoveOpenBracket()
+        {
+            var node = CurrentNode.Parent;
+            node.Right = CurrentNode.Right;
+            if (CurrentNode.Right != null)
+            {
+                CurrentNode.Right.Parent = node;
+            }
+            return node;
         }
 
         private INode ClimbUp(IToken token)
@@ -42,9 +56,6 @@ namespace Calculator
             }
             return currentNode;
         }
-
-        public override string ToString() =>
-            string.Join(string.Empty, this.InOrder().Skip(1).Select(x => x.Token));
 
         private class Node : INode
         {
