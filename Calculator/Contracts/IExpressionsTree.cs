@@ -6,7 +6,6 @@ namespace Calculator.Contracts
     {
         INode Root { get; }
         IExpressionsTree Insert(IToken token);
-        INode ClimbUp(IToken token);
     }
 
     public interface INode

@@ -26,7 +26,7 @@ namespace Calculator
             return this;
         }
 
-        public INode ClimbUp(IToken token)
+        private INode ClimbUp(IToken token)
         {
             if (token.Associative is Associative.None) return CurrentNode;
             var currentNode = CurrentNode;
