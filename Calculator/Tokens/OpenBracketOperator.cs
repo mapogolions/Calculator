@@ -11,9 +11,9 @@ namespace Calculator.Tokens
         public override IToken EnsureIsValid(IToken previousToken)
         {
             if (previousToken == Operator.CloseBracket)
-                throw new ParserException("Open bracket can be after close bracket");
+                throw new ParseException("Open bracket can be after close bracket");
             else if (previousToken is Number<int> _ || previousToken is Number<double> _)
-                throw new ParserException("Open bracket can be after number");
+                throw new ParseException("Open bracket can be after number");
             return this;
         }
     }

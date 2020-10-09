@@ -11,13 +11,13 @@ namespace Calculator.Tokens
         public override IToken EnsureIsValid(IToken previousToken)
         {
             if (previousToken is null)
-                throw new ParserException("Close bracket can't be first token");
+                throw new ParseException("Close bracket can't be first token");
             if (previousToken == Operator.OpenBracket)
-                throw new ParserException("Close bracket can't be follow after open bracket");
+                throw new ParseException("Close bracket can't be follow after open bracket");
             else if (previousToken is UnaryOperator _ && previousToken != Operator.CloseBracket)
-                throw new ParserException("Close bracket can't be follow after unary operator");
+                throw new ParseException("Close bracket can't be follow after unary operator");
             else if (previousToken is BinaryOperator _)
-                throw new ParserException("Close bracket can't be follow after binary operator");
+                throw new ParseException("Close bracket can't be follow after binary operator");
             return this;
         }
     }

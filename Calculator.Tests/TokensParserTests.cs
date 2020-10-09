@@ -13,7 +13,7 @@ namespace Calculator.Test
         public void ParseShouldThrowParserExceptionWithMessage(string source)
         {
             var parser = new TokensParser(Operator.AvailableOperators);
-            Assert.Throws<ParserException>(() => parser.Parse(source));
+            Assert.Throws<ParseException>(() => parser.Parse(source));
         }
 
         [Theory]

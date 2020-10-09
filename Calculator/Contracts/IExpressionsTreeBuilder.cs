@@ -2,6 +2,6 @@ namespace Calculator.Contracts
 {
     public interface IExpressionsTreeBuilder
     {
-        IExpressionsTree Build(string tokens);
+        IExpressionsTree Build(string source);
     }
 }

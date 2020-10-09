@@ -12,6 +12,7 @@ namespace Calculator
         {
             _parser = parser;
         }
+
         public IExpressionsTree Build(string source) => _parser.Parse(source)
             .Aggregate<IToken, IExpressionsTree>(new ExpressionsTree(), (tree, token) => tree.Insert(token));
     }

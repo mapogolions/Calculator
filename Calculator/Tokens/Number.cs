@@ -38,9 +38,9 @@ namespace Calculator.Tokens
         public IToken EnsureIsValid(IToken previousToken)
         {
             if (previousToken == Operator.CloseBracket)
-                throw new ParserException("Number can't be follow after close bracket");
+                throw new ParseException("Number can't be follow after close bracket");
             if (previousToken is Number<int>_ || previousToken is Number<double> _)
-                throw new ParserException("Number cant' be follow after number");
+                throw new ParseException("Number cant' be follow after number");
             return this;
         }
 
