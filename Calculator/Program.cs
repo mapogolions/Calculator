@@ -11,7 +11,7 @@ namespace Calculator
             var snippet = @"(1 + 2) * 3";
             var tree = new ExpressionsTreeBuilder(new TokensParser(Operator.AvailableOperators))
                 .Build(snippet);
-            Console.WriteLine(tree.Traverse(Traversals.PostOrder));
+            Console.WriteLine(tree.Traverse(Traversal.PostOrder));
         }
     }
 }

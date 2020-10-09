@@ -7,12 +7,12 @@ namespace Calculator.Extensions
 {
     public static class IExpressionsTreeOps
     {
-        public static string Traverse(this IExpressionsTree @this, Traversals traversal, string sep = " ")
+        public static string Traverse(this IExpressionsTree @this, Traversal traversal, string sep = " ")
         {
             var nodes = traversal switch
             {
-                Traversals.PreOrder => PreOrder(@this),
-                Traversals.PostOrder => PostOrder(@this),
+                Traversal.PreOrder => PreOrder(@this),
+                Traversal.PostOrder => PostOrder(@this),
                 _ => InOrder(@this)
             };
             return string.Join(sep, nodes.Select(x => x.Token));

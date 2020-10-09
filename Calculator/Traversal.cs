@@ -1,6 +1,6 @@
 namespace Calculator
 {
-    public enum Traversals
+    public enum Traversal
     {
         PreOrder,
         InOrder,
