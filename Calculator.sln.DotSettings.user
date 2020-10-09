@@ -1,9 +1,0 @@
-﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=744194e8_002Db084_002D48d6_002D8742_002De1aedf6f167e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ParseShouldReturnListOfTokens" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::A4BBB828-47DC-4F54-8053-76193EDF903E::.NETCoreApp,Version=v3.1::Calculator.Test.TokenParserTests.ParseShouldReturnListOfTokens&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::A4BBB828-47DC-4F54-8053-76193EDF903E::.NETCoreApp,Version=v3.1::Calculator.Test.TokenParserTests.ParseShouldReturnListOfNumberTokens&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::A4BBB828-47DC-4F54-8053-76193EDF903E::.NETCoreApp,Version=v3.1::Calculator.Test.TokenParserTests.ParseShouldReturnListOfOperatorTokens&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::A4BBB828-47DC-4F54-8053-76193EDF903E::.NETCoreApp,Version=v3.1::Calculator.Test.TokenParserTests.ParseShouldThrowInvalidOperationExceptionWhenSourceIsInvalid&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
