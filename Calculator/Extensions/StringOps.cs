@@ -4,6 +4,24 @@ namespace Calculator.Extensions
 {
     public static class StringOps
     {
+        public static bool IsBalanced(this string @this, char[] pairs)
+        {
+            var i = 0;
+            foreach (var ch in @this)
+            {
+                if (pairs[0].Equals(ch))
+                {
+                    i++;
+                    continue;
+                }
+                if (pairs[1].Equals(ch) && (--i) < 0)
+                {
+                    return false;
+                }
+            }
+            return i == 0;
+        }
+
         public static IEnumerable<string> SplitAndKeep(this string s, char[] separators)
         {
             int start = 0, index;

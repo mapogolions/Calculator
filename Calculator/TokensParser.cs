@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Calculator.Contracts;
 using Calculator.Extensions;
 using Calculator.Tokens;
+using Calculator.Exceptions;
 
 namespace Calculator
 {
@@ -17,6 +18,8 @@ namespace Calculator
 
         public IEnumerable<IToken> Parse(string source)
         {
+            if (!source.IsBalanced(new [] { Operator.OpenBracket.Sign, Operator.CloseBracket.Sign }))
+                throw new ParseException("Source is unbalanced");
             var tokens = new List<IToken>();
             var parts = source.Trim().SplitAndKeep(Separators).Where(x => !string.IsNullOrEmpty(x));
             foreach (var part in parts)
