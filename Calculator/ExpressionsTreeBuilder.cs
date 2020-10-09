@@ -8,10 +8,7 @@ namespace Calculator
     {
         private readonly ITokensParser _parser;
 
-        public ExpressionsTreeBuilder(ITokensParser parser)
-        {
-            _parser = parser;
-        }
+        public ExpressionsTreeBuilder(ITokensParser parser) => _parser = parser;
 
         public IExpressionsTree Build(string source) => _parser.Parse(source)
             .Aggregate<IToken, IExpressionsTree>(new ExpressionsTree(), (tree, token) => tree.Insert(token));

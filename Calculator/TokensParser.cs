@@ -11,10 +11,7 @@ namespace Calculator
     {
         private readonly IEnumerable<Operator> _operators;
 
-        public TokensParser(IEnumerable<Operator> operators)
-        {
-            _operators = operators;
-        }
+        public TokensParser(IEnumerable<Operator> operators) => _operators = operators;
 
         private char[] Separators => _operators.Select(x => x.Sign).Distinct().ToArray();
 
@@ -27,7 +24,7 @@ namespace Calculator
                 var normalized = part.Trim();
                 var previousToken = tokens.LastOrDefault();
                 var operatorToken = _operators
-                    .FirstOrDefault(op => $"{op.Sign}" == normalized && op.Associative == Assoc(previousToken, op));
+                    .FirstOrDefault(op => $"{op.Sign}" == normalized && op.Associative == op.HeuristicAssociativity(previousToken));
                 if (operatorToken != null)
                 {
                     tokens.Add(operatorToken.EnsureIsValid(previousToken));
@@ -43,18 +40,6 @@ namespace Calculator
                 tokens.Add(new Number<double>(floatingPoint).EnsureIsValid(previousToken));
             }
             return tokens;
-        }
-
-        private static Associative Assoc(IToken previousToken, Operator op)
-        {
-            if (!op.HasMultipleAssociativeForms) return op.Associative;
-            return previousToken switch
-            {
-                Operator { Sign: ')' } => Associative.Left,
-                Number<int> _ => Associative.Left,
-                Number<double> _ => Associative.Left,
-                _ => Associative.Right
-            };
         }
     }
 }

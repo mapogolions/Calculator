@@ -9,10 +9,7 @@ namespace Calculator
 
         public INode CurrentNode { get; private set; }
 
-        public ExpressionsTree()
-        {
-            Root = CurrentNode = new Node(Operator.OpenBracket);
-        }
+        public ExpressionsTree() => Root = CurrentNode = new Node(Operator.OpenBracket);
 
         public IExpressionsTree Insert(IToken token)
         {
@@ -62,12 +59,9 @@ namespace Calculator
             public INode Parent { get; set; }
             public INode Left { get; set; }
             public INode Right { get; set; }
-
-            public Node(IToken token)
-            {
-                Token = token;
-            }
             public IToken Token { get;  }
+
+            public Node(IToken token) => Token = token;
         }
     }
 }

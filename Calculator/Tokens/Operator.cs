@@ -17,8 +17,7 @@ namespace Calculator.Tokens
         public char Sign { get; }
         public int Precedence { get; }
         public Associative Associative { get; }
-
-        public bool HasMultipleAssociativeForms =>
+        public bool IsMultiAssociative =>
             AllAvailable.Count(x => x.Sign == Sign) > 1;
 
         public override string ToString() => $"{Sign}";
