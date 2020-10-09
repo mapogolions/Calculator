@@ -9,7 +9,7 @@ namespace Calculator
         internal static void Main(string[] args)
         {
             var snippet = @"(1 + 2) * 3";
-            var tree = new ExpressionsTreeBuilder(new TokensParser(Operator.AvailableOperators))
+            var tree = new ExpressionsTreeBuilder(new TokensParser(Operator.AllAvailable))
                 .Build(snippet);
             Console.WriteLine(tree.Traverse(Traversal.PostOrder));
         }

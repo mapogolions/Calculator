@@ -5,21 +5,21 @@ namespace Calculator.Tokens
 {
     public abstract class Operator : IToken
     {
-        public static IList<Operator> AvailableOperators { get; } = new List<Operator>();
+        public static IList<Operator> AllAvailable { get; } = new List<Operator>();
 
         protected Operator(char sign, int precedence, Associative associative)
         {
             Sign = sign;
             Precedence = precedence;
             Associative = associative;
-            AvailableOperators.Add(this);
+            AllAvailable.Add(this);
         }
         public char Sign { get; }
         public int Precedence { get; }
         public Associative Associative { get; }
 
         public bool HasMultipleAssociativeForms =>
-            AvailableOperators.Count(x => x.Sign == Sign) > 1;
+            AllAvailable.Count(x => x.Sign == Sign) > 1;
 
         public override string ToString() => $"{Sign}";
 
