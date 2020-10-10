@@ -14,7 +14,7 @@ namespace Calculator.Test
         public void ParseShouldThrowParseException(string source)
         {
             var tokenParser = new CompositeParser(new OperatorParser(Operator.AllAvailable), new NumberParser());
-            var parser = new TokensParser(tokenParser, Operator.AllAvailable);
+            var parser = new TokensParser(tokenParser, Operator.Signs);
             Assert.Throws<ParseException>(() => parser.Parse(source));
         }
 
@@ -23,7 +23,7 @@ namespace Calculator.Test
         public void ParseShouldReturnListOfTokens(string source, IEnumerable<IToken> tokens)
         {
             var tokenParser = new CompositeParser(new OperatorParser(Operator.AllAvailable), new NumberParser());
-            var parser = new TokensParser(tokenParser, Operator.AllAvailable);
+            var parser = new TokensParser(tokenParser, Operator.Signs);
             Assert.Equal(tokens, parser.Parse(source));
         }
 
@@ -31,7 +31,7 @@ namespace Calculator.Test
         public void ParseShouldReturnEmptyListOfTokensWhenSourceContainsWhitespacesOnly()
         {
             var tokenParser = new CompositeParser(new OperatorParser(Operator.AllAvailable), new NumberParser());
-            var parser = new TokensParser(tokenParser, Operator.AllAvailable);
+            var parser = new TokensParser(tokenParser, Operator.Signs);
             Assert.Empty(parser.Parse("  \t\n \f"));
         }
 
@@ -39,7 +39,7 @@ namespace Calculator.Test
         public void ParseShouldReturnEmptyListOfTokensWhenSourceIsEmptyString()
         {
             var tokenParser = new CompositeParser(new OperatorParser(Operator.AllAvailable), new NumberParser());
-            var parser = new TokensParser(tokenParser, Operator.AllAvailable);
+            var parser = new TokensParser(tokenParser, Operator.Signs);
             Assert.Empty(parser.Parse(string.Empty));
         }
     }

@@ -6,6 +6,7 @@ namespace Calculator.Tokens
     public abstract class Operator : IToken
     {
         public static IList<Operator> AllAvailable { get; } = new List<Operator>();
+        public static char[] Signs => AllAvailable.Select(x => x.Sign).Distinct().ToArray();
 
         protected Operator(char sign, int precedence, Associative associative)
         {
