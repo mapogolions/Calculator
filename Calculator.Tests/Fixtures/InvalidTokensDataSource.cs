@@ -7,6 +7,8 @@ namespace Calculator.Test.Fixtures
     {
         public IEnumerator<object[]> GetEnumerator()
         {
+            yield return new object[] { "+" };
+            yield return new object[] { "-" };
             yield return new object[] { "*" };
             yield return new object[] { "/" };
             yield return new object[] { ")" };
@@ -20,6 +22,8 @@ namespace Calculator.Test.Fixtures
             yield return new object[] { "3 + 3)" };
             yield return new object[] { "(3 + 3" };
             yield return new object[] { "(2))" };
+            yield return new object[] { "2 + 3 +" };
+            yield return new object[] { "2 + 3 / + -" };
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

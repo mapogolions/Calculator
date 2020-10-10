@@ -42,7 +42,12 @@ namespace Calculator
                     throw new InvalidOperationException("Invalid token");
                 tokens.Add(new Number<double>(floatingPoint).EnsureIsValid(previousToken));
             }
-            return tokens;
+            var lastToken = tokens.LastOrDefault();
+            if (lastToken is null || lastToken is Number<int> || lastToken is Number<double> || lastToken == Operator.CloseBracket)
+            {
+                return tokens;
+            }
+            throw new ParseException("Invalid end of source");
         }
     }
 }

@@ -8,8 +8,6 @@ namespace Calculator.Test.Fixtures
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            yield return new object[] { "+", new List<IToken> { Operator.Positive }};
-            yield return new object[] { "-", new List<IToken> { Operator.Negative }};
             yield return new object[] { "-(17)",
                 new List<IToken> { Operator.Negative, Operator.OpenBracket, new Number<int>(17), Operator.CloseBracket } };
             yield return new object[] { "+17",

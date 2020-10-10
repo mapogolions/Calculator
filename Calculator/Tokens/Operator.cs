@@ -20,6 +20,7 @@ namespace Calculator.Tokens
         public bool IsMultiAssociative =>
             AllAvailable.Count(x => x.Sign == Sign) > 1;
 
+
         public override string ToString() => $"{Sign}";
 
         public abstract IToken EnsureIsValid(IToken previousToken);
