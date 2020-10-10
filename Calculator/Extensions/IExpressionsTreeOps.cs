@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Calculator.Contracts;
@@ -7,6 +8,40 @@ namespace Calculator.Extensions
 {
     public static class IExpressionsTreeOps
     {
+        public static double Reduce(this IExpressionsTree @this)
+        {
+            static double Iter(INode node)
+            {
+                if (node is null) return 0;
+                if (node.Token == Operator.OpenBracket) return Iter(node.Right);
+                if (node.Token is Number<int> num) return num.Value;
+                if (node.Token is Number<double> floatingPoint) return floatingPoint.Value;
+                if (node.Token is BinaryOperator binaryOperator)
+                {
+                    return binaryOperator.Sign switch
+                    {
+                        '+' => Iter(node.Left) + Iter(node.Right),
+                        '-' => Iter(node.Left) - Iter(node.Right),
+                        '*' => Iter(node.Left) * Iter(node.Right),
+                        '/' => Iter(node.Left) / Iter(node.Right),
+                        '^' => Math.Pow(Iter(node.Left), Iter(node.Right)),
+                        _ => throw new InvalidOperationException()
+                    };
+                }
+                if (node.Token is UnaryOperator unaryOperator)
+                {
+                    return unaryOperator.Sign switch
+                    {
+                        '+' => Iter(node.Right),
+                        '-' => - Iter(node.Right),
+                        _ => throw new InvalidOperationException()
+                    };
+                }
+                throw new InvalidOperationException();
+            }
+            return Iter(@this.Root);
+        }
+
         public static string Traverse(this IExpressionsTree @this, Traversal traversal, string sep = " ")
         {
             var nodes = traversal switch
@@ -20,41 +55,41 @@ namespace Calculator.Extensions
 
         public static IEnumerable<INode> PreOrder(this IExpressionsTree @this)
         {
-            static IEnumerable<INode> Traverse(INode node, IList<INode> acc)
+            static IEnumerable<INode> Iter(INode node, IList<INode> acc)
             {
                 if (node is null) return acc;
                 if (MustBeIncluded(node)) acc.Add(node);
-                Traverse(node.Left, acc);
-                Traverse(node.Right, acc);
+                Iter(node.Left, acc);
+                Iter(node.Right, acc);
                 return acc;
             }
-            return Traverse(@this.Root, new List<INode>());
+            return Iter(@this.Root, new List<INode>());
         }
 
         public static IEnumerable<INode> InOrder(this IExpressionsTree @this)
         {
-            static IEnumerable<INode> Traverse(INode node, IList<INode> acc)
+            static IEnumerable<INode> Iter(INode node, IList<INode> acc)
             {
                 if (node is null) return acc;
-                Traverse(node.Left, acc);
+                Iter(node.Left, acc);
                 if (MustBeIncluded(node)) acc.Add(node);
-                Traverse(node.Right, acc);
+                Iter(node.Right, acc);
                 return acc;
             }
-            return Traverse(@this.Root, new List<INode>());
+            return Iter(@this.Root, new List<INode>());
         }
 
         public static IEnumerable<INode> PostOrder(this IExpressionsTree @this)
         {
-            static IEnumerable<INode> Traverse(INode node, IList<INode> acc)
+            static IEnumerable<INode> Iter(INode node, IList<INode> acc)
             {
                 if (node is null) return acc;
-                Traverse(node.Left, acc);
-                Traverse(node.Right, acc);
+                Iter(node.Left, acc);
+                Iter(node.Right, acc);
                 if (MustBeIncluded(node)) acc.Add(node);
                 return acc;
             }
-            return Traverse(@this.Root, new List<INode>());
+            return Iter(@this.Root, new List<INode>());
         }
 
         private static bool MustBeIncluded(INode node) =>
