@@ -5,13 +5,13 @@ using Calculator.Tokens;
 
 namespace Calculator.Parsers
 {
-    public class OperatorParser : ITokenParser
+    public class OperatorResolver : ITokensResolver
     {
         private readonly IEnumerable<Operator> _operators;
 
-        public OperatorParser(IEnumerable<Operator> operators) => _operators = operators;
+        public OperatorResolver(IEnumerable<Operator> operators) => _operators = operators;
 
-        public bool TryParse(string chunk, IToken previousToken, out IToken token)
+        public bool TryResolve(string chunk, IToken previousToken, out IToken token)
         {
             token = _operators.FirstOrDefault(op => $"{op.Sign}" == chunk
                 && op.Associative == op.HeuristicAssociativity(previousToken));

@@ -11,12 +11,12 @@ namespace Calculator
 {
     public class TokensParser : ITokensParser
     {
-        private readonly ITokenParser _tokenParser;
+        private readonly ITokensResolver _tokensResolver;
         private readonly char[] _separators;
 
-        public TokensParser(ITokenParser parser, char[] separators)
+        public TokensParser(ITokensResolver tokensResolver, char[] separators)
         {
-            _tokenParser = parser;
+            _tokensResolver = tokensResolver;
             _separators = separators;
         }
 
@@ -30,8 +30,7 @@ namespace Calculator
             var chunks = source.Trim().SplitAndKeep(_separators).Where(x => !string.IsNullOrEmpty(x));
             foreach (var chunk in chunks)
             {
-                var previousToken = tokens.LastOrDefault();
-                if (!_tokenParser.TryParse(chunk.Trim(), previousToken, out var token))
+                if (!_tokensResolver.TryResolve(chunk.Trim(), tokens.LastOrDefault(), out var token))
                 {
                     throw new InvalidOperationException("Invalid token");
                 }

@@ -2,9 +2,9 @@ using Calculator.Tokens;
 
 namespace Calculator.Parsers
 {
-    public class NumberParser : ITokenParser
+    public class NumberResolver : ITokensResolver
     {
-        public bool TryParse(string chunk, IToken previousToken, out IToken token)
+        public bool TryResolve(string chunk, IToken previousToken, out IToken token)
         {
             token = null;
             if (int.TryParse(chunk, out var num))

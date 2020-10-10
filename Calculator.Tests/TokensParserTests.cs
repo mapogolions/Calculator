@@ -13,7 +13,7 @@ namespace Calculator.Test
         [ClassData(typeof(InvalidTokensDataSource))]
         public void ParseShouldThrowParseException(string source)
         {
-            var tokenParser = new CompositeParser(new OperatorParser(Operator.AllAvailable), new NumberParser());
+            var tokenParser = new CompositeResolver(new OperatorResolver(Operator.AllAvailable), new NumberResolver());
             var parser = new TokensParser(tokenParser, Operator.Signs);
             Assert.Throws<ParseException>(() => parser.Parse(source));
         }
@@ -22,7 +22,7 @@ namespace Calculator.Test
         [ClassData(typeof(ValidTokensDataSource))]
         public void ParseShouldReturnListOfTokens(string source, IEnumerable<IToken> tokens)
         {
-            var tokenParser = new CompositeParser(new OperatorParser(Operator.AllAvailable), new NumberParser());
+            var tokenParser = new CompositeResolver(new OperatorResolver(Operator.AllAvailable), new NumberResolver());
             var parser = new TokensParser(tokenParser, Operator.Signs);
             Assert.Equal(tokens, parser.Parse(source));
         }
@@ -30,7 +30,7 @@ namespace Calculator.Test
         [Fact]
         public void ParseShouldReturnEmptyListOfTokensWhenSourceContainsWhitespacesOnly()
         {
-            var tokenParser = new CompositeParser(new OperatorParser(Operator.AllAvailable), new NumberParser());
+            var tokenParser = new CompositeResolver(new OperatorResolver(Operator.AllAvailable), new NumberResolver());
             var parser = new TokensParser(tokenParser, Operator.Signs);
             Assert.Empty(parser.Parse("  \t\n \f"));
         }
@@ -38,7 +38,7 @@ namespace Calculator.Test
         [Fact]
         public void ParseShouldReturnEmptyListOfTokensWhenSourceIsEmptyString()
         {
-            var tokenParser = new CompositeParser(new OperatorParser(Operator.AllAvailable), new NumberParser());
+            var tokenParser = new CompositeResolver(new OperatorResolver(Operator.AllAvailable), new NumberResolver());
             var parser = new TokensParser(tokenParser, Operator.Signs);
             Assert.Empty(parser.Parse(string.Empty));
         }
