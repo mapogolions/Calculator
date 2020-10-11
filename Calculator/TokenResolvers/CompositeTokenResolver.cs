@@ -5,16 +5,16 @@ namespace Calculator.TokenResolvers
 {
     public class CompositeTokenResolver : ITokensResolver
     {
-        private readonly IEnumerable<ITokensResolver> _parsers;
+        private readonly IEnumerable<ITokensResolver> _tokenResolvers;
 
-        public CompositeTokenResolver(params ITokensResolver[] parsers) => _parsers = parsers;
+        public CompositeTokenResolver(params ITokensResolver[] tokenResolvers) => _tokenResolvers = tokenResolvers;
 
         public bool TryResolve(string chunk, IToken previousToken, out IToken token)
         {
 
-            foreach (var parser in _parsers)
+            foreach (var tokenResolver in _tokenResolvers)
             {
-                if (parser.TryResolve(chunk, previousToken, out token))
+                if (tokenResolver.TryResolve(chunk, previousToken, out token))
                 {
                     return true;
                 }
