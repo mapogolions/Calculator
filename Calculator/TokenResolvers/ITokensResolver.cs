@@ -1,6 +1,6 @@
 using Calculator.Tokens;
 
-namespace Calculator.Parsers
+namespace Calculator.TokenResolvers
 {
     public interface ITokensResolver
     {

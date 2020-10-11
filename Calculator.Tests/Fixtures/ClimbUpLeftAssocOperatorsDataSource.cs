@@ -11,9 +11,9 @@ namespace Calculator.Test.Fixtures
             yield return new object[] // 1 + 34.3
             {
                 new ExpressionsTree()
-                    .Insert(new Number<int>(1))
-                    .Insert(Operator.Plus)
-                    .Insert(new Number<double>(34.3)),
+                    .Insert(new NumberToken<int>(1))
+                    .Insert(OperatorToken.Plus)
+                    .Insert(new NumberToken<double>(34.3)),
                 "1 + 34.3",
                 "1 34.3 +"
             };
@@ -21,13 +21,13 @@ namespace Calculator.Test.Fixtures
             yield return new object[] // (1 + 2) * 3
             {
                 new ExpressionsTree()
-                    .Insert(Operator.OpenBracket)
-                    .Insert(new Number<int>(1))
-                    .Insert(Operator.Plus)
-                    .Insert(new Number<int>(2))
-                    .Insert(Operator.CloseBracket)
-                    .Insert(Operator.Times)
-                    .Insert(new Number<int>(3)),
+                    .Insert(OperatorToken.OpenBracket)
+                    .Insert(new NumberToken<int>(1))
+                    .Insert(OperatorToken.Plus)
+                    .Insert(new NumberToken<int>(2))
+                    .Insert(OperatorToken.CloseBracket)
+                    .Insert(OperatorToken.Times)
+                    .Insert(new NumberToken<int>(3)),
                 "1 + 2 * 3",
                 "1 2 + 3 *"
             };
@@ -35,13 +35,13 @@ namespace Calculator.Test.Fixtures
             yield return new object[] // (1 + 2 * 3.1)
             {
                 new ExpressionsTree()
-                    .Insert(Operator.OpenBracket)
-                    .Insert(new Number<int>(1))
-                    .Insert(Operator.Plus)
-                    .Insert(new Number<int>(2))
-                    .Insert(Operator.Times)
-                    .Insert(new Number<double>(3.1))
-                    .Insert(Operator.CloseBracket),
+                    .Insert(OperatorToken.OpenBracket)
+                    .Insert(new NumberToken<int>(1))
+                    .Insert(OperatorToken.Plus)
+                    .Insert(new NumberToken<int>(2))
+                    .Insert(OperatorToken.Times)
+                    .Insert(new NumberToken<double>(3.1))
+                    .Insert(OperatorToken.CloseBracket),
                 "1 + 2 * 3.1",
                 "1 2 3.1 * +"
             };

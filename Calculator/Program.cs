@@ -1,6 +1,6 @@
 ﻿using System;
 using Calculator.Extensions;
-using Calculator.Parsers;
+using Calculator.TokenResolvers;
 using Calculator.Tokens;
 
 namespace Calculator
@@ -10,8 +10,9 @@ namespace Calculator
         internal static void Main(string[] args)
         {
             var snippet = "-(2 ^ 2 ^ 3)";
-            var tokensResolver = new CompositeResolver(new OperatorResolver(Operator.AllAvailable), new NumberResolver());
-            var tokensParser = new TokensParser(tokensResolver, Operator.Signs);
+            var tokensResolver = new CompositeTokenResolver(
+                new OperatorTokenResolver(OperatorToken.AllAvailable), new NumberTokenResolver());
+            var tokensParser = new TokensParser(tokensResolver, OperatorToken.Signs);
             var result = new ExpressionsTreeBuilder(tokensParser).Build(snippet).Reduce();
             Console.WriteLine(result);
         }

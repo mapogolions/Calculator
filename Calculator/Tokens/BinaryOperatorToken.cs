@@ -2,20 +2,20 @@ using Calculator.Exceptions;
 
 namespace Calculator.Tokens
 {
-    public class BinaryOperator : Operator
+    public class BinaryOperatorToken : OperatorToken
     {
-        public BinaryOperator(char sign, int precedence, Associative associative)
+        public BinaryOperatorToken(char sign, int precedence, Associative associative)
             : base(sign, precedence, associative) { }
 
         public override IToken EnsureIsValid(IToken previousToken)
         {
             if (previousToken is null)
                 throw new ParseException("Binary operator can be first");
-            if (previousToken == Operator.OpenBracket)
+            if (Equals(previousToken, OperatorToken.OpenBracket))
                 throw new ParseException("Binary operator can't be follow after open bracket");
-            if (previousToken is BinaryOperator _)
+            if (previousToken is BinaryOperatorToken _)
                 throw new ParseException("Consecutive binary operators");
-            if (previousToken is UnaryOperator op && op != Operator.CloseBracket)
+            if (previousToken is UnaryOperatorToken op && op != OperatorToken.CloseBracket)
                 throw new ParseException("Binary operator can't be follow after unary operator");
             return this;
         }

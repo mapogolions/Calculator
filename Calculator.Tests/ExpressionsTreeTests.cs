@@ -30,8 +30,8 @@ namespace Calculator.Test
         public void ShouldSkipClimbUpForNoneAssociativeTokens()
         {
             var tree = new ExpressionsTree()
-                .Insert(Operator.OpenBracket)
-                .Insert(new Number<int>(1));
+                .Insert(OperatorToken.OpenBracket)
+                .Insert(new NumberToken<int>(1));
 
             Assert.Equal("1", tree.Traverse(Traversal.InOrder));
         }
@@ -47,7 +47,7 @@ namespace Calculator.Test
         public void EmptyExpressionsTreeShouldHasNullRoot()
         {
             var tree = new ExpressionsTree();
-            Assert.Equal(Operator.OpenBracket, tree.Root.Token);
+            Assert.Equal(OperatorToken.OpenBracket, tree.Root.Token);
         }
     }
 }

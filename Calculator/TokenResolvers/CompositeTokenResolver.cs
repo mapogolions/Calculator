@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using Calculator.Tokens;
 
-namespace Calculator.Parsers
+namespace Calculator.TokenResolvers
 {
-    public class CompositeResolver : ITokensResolver
+    public class CompositeTokenResolver : ITokensResolver
     {
         private readonly IEnumerable<ITokensResolver> _parsers;
 
-        public CompositeResolver(params ITokensResolver[] parsers) => _parsers = parsers;
+        public CompositeTokenResolver(params ITokensResolver[] parsers) => _parsers = parsers;
 
         public bool TryResolve(string chunk, IToken previousToken, out IToken token)
         {

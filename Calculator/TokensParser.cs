@@ -4,7 +4,7 @@ using Calculator.Contracts;
 using Calculator.Extensions;
 using Calculator.Tokens;
 using Calculator.Exceptions;
-using Calculator.Parsers;
+using Calculator.TokenResolvers;
 using System;
 
 namespace Calculator
@@ -22,7 +22,7 @@ namespace Calculator
 
         public IEnumerable<IToken> Parse(string source)
         {
-            if (!source.IsBalanced(new [] { Operator.OpenBracket.Sign, Operator.CloseBracket.Sign }))
+            if (!source.IsBalanced(new [] { OperatorToken.OpenBracket.Sign, OperatorToken.CloseBracket.Sign }))
             {
                 throw new ParseException("Source is unbalanced");
             }
@@ -37,8 +37,8 @@ namespace Calculator
                 tokens.Add(token);
             }
             var lastToken = tokens.LastOrDefault();
-            if (lastToken is null || lastToken is Number<int>
-                || lastToken is Number<double> || lastToken == Operator.CloseBracket)
+            if (lastToken is null || lastToken is NumberToken<int>
+                || lastToken is NumberToken<double> || lastToken == OperatorToken.CloseBracket)
             {
                 return tokens;
             }

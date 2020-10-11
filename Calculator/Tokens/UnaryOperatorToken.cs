@@ -2,14 +2,14 @@ using Calculator.Exceptions;
 
 namespace Calculator.Tokens
 {
-    public class UnaryOperator : Operator
+    public class UnaryOperatorToken : OperatorToken
     {
-        public UnaryOperator(char sign, int precedence, Associative associative)
+        public UnaryOperatorToken(char sign, int precedence, Associative associative)
             : base(sign, precedence, associative) { }
 
         public override IToken EnsureIsValid(IToken previousToken)
         {
-            if (previousToken == Operator.CloseBracket)
+            if (previousToken == OperatorToken.CloseBracket)
                 throw new ParseException("Invalid associativity detection. After close bracket shold be binary operator");
             return this;
         }

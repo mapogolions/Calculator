@@ -3,9 +3,9 @@ using Calculator.Exceptions;
 
 namespace Calculator.Tokens
 {
-    public class Number<T> : IToken, IEquatable<Number<T>> where T : struct
+    public class NumberToken<T> : IToken, IEquatable<NumberToken<T>> where T : struct
     {
-        public Number(T value)
+        public NumberToken(T value)
         {
             Value = value;
         }
@@ -15,7 +15,7 @@ namespace Calculator.Tokens
 
         public Associative Associative => Associative.None;
 
-        public bool Equals(Number<T> other)
+        public bool Equals(NumberToken<T> other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -27,7 +27,7 @@ namespace Calculator.Tokens
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Number<T>) obj);
+            return Equals((NumberToken<T>) obj);
         }
 
         public override int GetHashCode()
@@ -37,9 +37,9 @@ namespace Calculator.Tokens
 
         public IToken EnsureIsValid(IToken previousToken)
         {
-            if (previousToken == Operator.CloseBracket)
+            if (previousToken == OperatorToken.CloseBracket)
                 throw new ParseException("Number can't be follow after close bracket");
-            if (previousToken is Number<int>_ || previousToken is Number<double> _)
+            if (previousToken is NumberToken<int>_ || previousToken is NumberToken<double> _)
                 throw new ParseException("Number cant' be follow after number");
             return this;
         }

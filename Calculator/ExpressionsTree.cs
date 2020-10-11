@@ -7,14 +7,14 @@ namespace Calculator
     {
         public INode Root { get; private set; }
 
-        public INode CurrentNode { get; private set; }
+        private INode CurrentNode { get; set; }
 
-        public ExpressionsTree() => Root = CurrentNode = new Node(Operator.OpenBracket);
+        public ExpressionsTree() => Root = CurrentNode = new Node(OperatorToken.OpenBracket);
 
         public IExpressionsTree Insert(IToken token)
         {
             CurrentNode = ClimbUp(token);
-            if (token == Operator.CloseBracket)
+            if (Equals(token, OperatorToken.CloseBracket))
             {
                 CurrentNode = RemoveOpenBracket();
                 return this;

@@ -2,21 +2,21 @@ using Calculator.Exceptions;
 
 namespace Calculator.Tokens
 {
-    public class CloseBracketOperator : UnaryOperator
+    public class CloseBracketToken : UnaryOperatorToken
     {
-        private CloseBracketOperator() : base (')', 1, Associative.Right) { }
+        private CloseBracketToken() : base (')', 1, Associative.Right) { }
 
-        public static readonly CloseBracketOperator Singleton = new CloseBracketOperator();
+        public static readonly CloseBracketToken Singleton = new CloseBracketToken();
 
         public override IToken EnsureIsValid(IToken previousToken)
         {
             if (previousToken is null)
                 throw new ParseException("Close bracket can't be first token");
-            if (previousToken == Operator.OpenBracket)
+            if (previousToken == OperatorToken.OpenBracket)
                 throw new ParseException("Close bracket can't be follow after open bracket");
-            else if (previousToken is UnaryOperator _ && previousToken != Operator.CloseBracket)
+            else if (previousToken is UnaryOperatorToken _ && previousToken != OperatorToken.CloseBracket)
                 throw new ParseException("Close bracket can't be follow after unary operator");
-            else if (previousToken is BinaryOperator _)
+            else if (previousToken is BinaryOperatorToken _)
                 throw new ParseException("Close bracket can't be follow after binary operator");
             return this;
         }

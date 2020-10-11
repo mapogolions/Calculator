@@ -4,14 +4,14 @@ namespace Calculator.Extensions
 {
     public static class OperatorOps
     {
-        public static Associative HeuristicAssociativity(this Operator @this, IToken previousToken)
+        public static Associative HeuristicAssociativity(this OperatorToken @this, IToken previousToken)
         {
             if (!@this.IsMultiAssociative) return @this.Associative;
             return previousToken switch
             {
-                Operator { Sign: ')' } => Associative.Left,
-                Number<int> _ => Associative.Left,
-                Number<double> _ => Associative.Left,
+                OperatorToken { Sign: ')' } => Associative.Left,
+                NumberToken<int> _ => Associative.Left,
+                NumberToken<double> _ => Associative.Left,
                 _ => Associative.Right
             };
         }

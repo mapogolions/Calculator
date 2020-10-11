@@ -13,10 +13,10 @@ namespace Calculator.Extensions
             static double Iter(INode node)
             {
                 if (node is null) return 0;
-                if (node.Token == Operator.OpenBracket) return Iter(node.Right);
-                if (node.Token is Number<int> num) return num.Value;
-                if (node.Token is Number<double> floatingPoint) return floatingPoint.Value;
-                if (node.Token is BinaryOperator binaryOperator)
+                if (node.Token == OperatorToken.OpenBracket) return Iter(node.Right);
+                if (node.Token is NumberToken<int> num) return num.Value;
+                if (node.Token is NumberToken<double> floatingPoint) return floatingPoint.Value;
+                if (node.Token is BinaryOperatorToken binaryOperator)
                 {
                     return binaryOperator.Sign switch
                     {
@@ -28,7 +28,7 @@ namespace Calculator.Extensions
                         _ => throw new InvalidOperationException()
                     };
                 }
-                if (node.Token is UnaryOperator unaryOperator)
+                if (node.Token is UnaryOperatorToken unaryOperator)
                 {
                     return unaryOperator.Sign switch
                     {
@@ -93,6 +93,6 @@ namespace Calculator.Extensions
         }
 
         private static bool MustBeIncluded(INode node) =>
-            node.Token != Operator.OpenBracket && node.Token != Operator.CloseBracket;
+            node.Token != OperatorToken.OpenBracket && node.Token != OperatorToken.CloseBracket;
     }
 }

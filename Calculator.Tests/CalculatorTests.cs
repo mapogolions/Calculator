@@ -1,5 +1,5 @@
 using Calculator.Extensions;
-using Calculator.Parsers;
+using Calculator.TokenResolvers;
 using Calculator.Test.Fixtures;
 using Calculator.Tokens;
 using Xunit;
@@ -12,8 +12,9 @@ namespace Calculator.Test
         [ClassData(typeof(CalculatorDataSource))]
         public void ShoudEvaluateExpression(string source, double expected)
         {
-            var tokensResolver = new CompositeResolver(new OperatorResolver(Operator.AllAvailable), new NumberResolver());
-            var tokensParser = new TokensParser(tokensResolver, Operator.Signs);
+            var tokensResolver = new CompositeTokenResolver(
+                new OperatorTokenResolver(OperatorToken.AllAvailable), new NumberTokenResolver());
+            var tokensParser = new TokensParser(tokensResolver, OperatorToken.Signs);
             var actual = new ExpressionsTreeBuilder(tokensParser).Build(source).Reduce();
 
             Assert.Equal(expected, actual);

@@ -7,12 +7,4 @@ namespace Calculator.Contracts
         INode Root { get; }
         IExpressionsTree Insert(IToken token);
     }
-
-    public interface INode
-    {
-        INode Parent { get; set; }
-        INode Left { get; set; }
-        INode Right { get; set; }
-        IToken Token { get; }
-    }
 }

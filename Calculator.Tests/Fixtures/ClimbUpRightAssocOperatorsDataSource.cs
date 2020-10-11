@@ -11,11 +11,11 @@ namespace Calculator.Test.Fixtures
             yield return new object[] // 2 ^ 4 ^ 3
             {
                 new ExpressionsTree()
-                    .Insert(new Number<int>(2))
-                    .Insert(Operator.Power)
-                    .Insert(new Number<int>(4))
-                    .Insert(Operator.Power)
-                    .Insert(new Number<int>(3)),
+                    .Insert(new NumberToken<int>(2))
+                    .Insert(OperatorToken.Power)
+                    .Insert(new NumberToken<int>(4))
+                    .Insert(OperatorToken.Power)
+                    .Insert(new NumberToken<int>(3)),
                 "2 ^ 4 ^ 3",
                 "2 4 3 ^ ^"
             };
@@ -23,14 +23,14 @@ namespace Calculator.Test.Fixtures
             yield return new object[] // -(-(- 2))
             {
                 new ExpressionsTree()
-                    .Insert(Operator.Negative)
-                    .Insert(Operator.OpenBracket)
-                    .Insert(Operator.Negative)
-                    .Insert(Operator.OpenBracket)
-                    .Insert(Operator.Negative)
-                    .Insert(new Number<int>(2))
-                    .Insert(Operator.CloseBracket)
-                    .Insert(Operator.CloseBracket),
+                    .Insert(OperatorToken.Negative)
+                    .Insert(OperatorToken.OpenBracket)
+                    .Insert(OperatorToken.Negative)
+                    .Insert(OperatorToken.OpenBracket)
+                    .Insert(OperatorToken.Negative)
+                    .Insert(new NumberToken<int>(2))
+                    .Insert(OperatorToken.CloseBracket)
+                    .Insert(OperatorToken.CloseBracket),
                 "- - - 2",
                 "2 - - -"
             };
