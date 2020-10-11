@@ -37,14 +37,14 @@ namespace Calculator.Test
         }
 
         [Fact]
-        public void ShouldReturnOpenBracketWhenTreeIsEmpty()
+        public void ShouldSkipDefaultRootToken()
         {
             var tree = new ExpressionsTree();
             Assert.Equal(string.Empty, tree.Traverse(Traversal.InOrder));
         }
 
         [Fact]
-        public void EmptyExpressionsTreeShouldHasNullRoot()
+        public void EmptyExpressionsTreeShouldHasOpenBracketTokenAsRoot()
         {
             var tree = new ExpressionsTree();
             Assert.Equal(OperatorToken.OpenBracket, tree.Root.Token);
