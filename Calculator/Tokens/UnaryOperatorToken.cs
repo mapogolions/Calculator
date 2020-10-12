@@ -9,8 +9,8 @@ namespace Calculator.Tokens
 
         public override IToken EnsureIsValid(IToken previousToken)
         {
-            if (previousToken == OperatorToken.CloseBracket)
-                throw new ParseException("Invalid associativity detection. After close bracket shold be binary operator");
+            if (Equals(previousToken, CloseBracket))
+                throw new ParseException("Invalid associativity detection. After close bracket should be binary operator");
             return this;
         }
     }

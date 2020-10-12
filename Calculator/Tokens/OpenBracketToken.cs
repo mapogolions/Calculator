@@ -10,7 +10,7 @@ namespace Calculator.Tokens
 
         public override IToken EnsureIsValid(IToken previousToken)
         {
-            if (previousToken == OperatorToken.CloseBracket)
+            if (Equals(previousToken, CloseBracket))
                 throw new ParseException("Open bracket can be after close bracket");
             else if (previousToken is NumberToken<int> _ || previousToken is NumberToken<double> _)
                 throw new ParseException("Open bracket can be after number");

@@ -26,8 +26,7 @@ namespace Calculator.Tokens
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((NumberToken<T>) obj);
+            return obj.GetType() == this.GetType() && Equals((NumberToken<T>) obj);
         }
 
         public override int GetHashCode()
@@ -37,7 +36,7 @@ namespace Calculator.Tokens
 
         public IToken EnsureIsValid(IToken previousToken)
         {
-            if (previousToken == OperatorToken.CloseBracket)
+            if (Equals(previousToken, OperatorToken.CloseBracket))
                 throw new ParseException("Number can't be follow after close bracket");
             if (previousToken is NumberToken<int>_ || previousToken is NumberToken<double> _)
                 throw new ParseException("Number cant' be follow after number");

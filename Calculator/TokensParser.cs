@@ -38,7 +38,7 @@ namespace Calculator
             }
             var lastToken = tokens.LastOrDefault();
             if (lastToken is null || lastToken is NumberToken<int>
-                || lastToken is NumberToken<double> || lastToken == OperatorToken.CloseBracket)
+                || lastToken is NumberToken<double> || Equals(lastToken, OperatorToken.CloseBracket))
             {
                 return tokens;
             }

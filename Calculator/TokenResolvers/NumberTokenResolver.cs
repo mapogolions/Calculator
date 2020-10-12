@@ -12,12 +12,9 @@ namespace Calculator.TokenResolvers
                 token = new NumberToken<int>(num).EnsureIsValid(previousToken);
                 return true;
             }
-            if (double.TryParse(chunk, out var floatingPoint))
-            {
-                token = new NumberToken<double>(floatingPoint).EnsureIsValid(previousToken);
-                return true;
-            }
-            return false;
+            if (!double.TryParse(chunk, out var floatingPoint)) return false;
+            token = new NumberToken<double>(floatingPoint).EnsureIsValid(previousToken);
+            return true;
         }
     }
 }

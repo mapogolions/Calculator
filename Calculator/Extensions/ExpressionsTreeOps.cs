@@ -6,19 +6,19 @@ using Calculator.Tokens;
 
 namespace Calculator.Extensions
 {
-    public static class IExpressionsTreeOps
+    public static class ExpressionsTreeOps
     {
         public static double Reduce(this IExpressionsTree @this)
         {
             static double Iter(INode node)
             {
                 if (node is null) return 0;
-                if (node.Token == OperatorToken.OpenBracket) return Iter(node.Right);
-                if (node.Token is NumberToken<int> num) return num.Value;
-                if (node.Token is NumberToken<double> floatingPoint) return floatingPoint.Value;
-                if (node.Token is BinaryOperatorToken binaryOperator)
+                if (Equals(node.Token, OperatorToken.OpenBracket)) return Iter(node.Right);
+                return node.Token switch
                 {
-                    return binaryOperator.Sign switch
+                    NumberToken<int> num => num.Value,
+                    NumberToken<double> floatingPoint => floatingPoint.Value,
+                    BinaryOperatorToken binaryOperator => binaryOperator.Sign switch
                     {
                         '+' => Iter(node.Left) + Iter(node.Right),
                         '-' => Iter(node.Left) - Iter(node.Right),
@@ -26,18 +26,15 @@ namespace Calculator.Extensions
                         '/' => Iter(node.Left) / Iter(node.Right),
                         '^' => Math.Pow(Iter(node.Left), Iter(node.Right)),
                         _ => throw new InvalidOperationException()
-                    };
-                }
-                if (node.Token is UnaryOperatorToken unaryOperator)
-                {
-                    return unaryOperator.Sign switch
+                    },
+                    UnaryOperatorToken unaryOperator => unaryOperator.Sign switch
                     {
                         '+' => Iter(node.Right),
-                        '-' => - Iter(node.Right),
+                        '-' => -Iter(node.Right),
                         _ => throw new InvalidOperationException()
-                    };
-                }
-                throw new InvalidOperationException();
+                    },
+                    _ => throw new InvalidOperationException()
+                };
             }
             return Iter(@this.Root);
         }
@@ -93,6 +90,6 @@ namespace Calculator.Extensions
         }
 
         private static bool MustBeIncluded(INode node) =>
-            node.Token != OperatorToken.OpenBracket && node.Token != OperatorToken.CloseBracket;
+            !Equals(node.Token, OperatorToken.OpenBracket) && !Equals(node.Token, OperatorToken.CloseBracket);
     }
 }

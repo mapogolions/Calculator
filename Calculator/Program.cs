@@ -9,7 +9,7 @@ namespace Calculator
     {
         internal static void Main(string[] args)
         {
-            var snippet = "-(2 ^ 2 ^ 3)";
+            const string snippet = "-(2 ^ 2 ^ 3)";
             var tokensResolver = new CompositeTokenResolver(
                 new OperatorTokenResolver(OperatorToken.AllAvailable), new NumberTokenResolver());
             var tokensParser = new TokensParser(tokensResolver, OperatorToken.Signs);
